@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # FIT CHECK — Personal Wardrobe & Outfit Architecture Prototype
 
 A polished, responsive fashion-editorial website prototype designed for personal wardrobe curation, mood-driven outfit planning, peer-to-peer second-hand curation, and circular free garment donations.
@@ -77,3 +78,6 @@ window.TINYFISH_CONFIG = {
 2. **Simulated Marketplace Transactions:** The Thrift and Free Donation views do not process actual payments, credit cards, real-time messaging, or live geolocation tracking. Locations and distances use manual string matching.
 3. **External Retailer Links:** Shopping reference links point to mock demonstration targets for visual inspiration.
 4. **Offline Wardrobe Analysis:** The outfit generation algorithm runs client-side rules based on categorized garments, color palettes, and tags rather than a paid cloud AI model.
+=======
+# Fitcheck
+>>>>>>> 4f43433dbc1350985540d8a009c2d47b8c5a9519
