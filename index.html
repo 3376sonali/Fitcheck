@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIT CHECK — Personal Wardrobe & Outfit Architecture</title>
+  
+  <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/bubbles.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Translucent Bubble Effect Canvas -->
+  <div class="bubble-canvas" aria-hidden="true">
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+  </div>
+
+  <div id="app">
+    <!-- Top Prototype Notice Banner -->
+    <aside class="proto-top-banner">
+      <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+        <span class="badge-soft">PROTOTYPE DEMO</span>
+        <span>Local client-side session • No backend or external billing required</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <button id="btn-open-tinyfish-banner" class="link-action" style="background:none;border:none;font:inherit;">
+          TinyFish Service: <strong id="top-tinyfish-status">Mock Fallback</strong>
+        </button>
+        <button id="btn-reset-demo-top" class="link-action" style="background:none;border:none;font:inherit;color:var(--c-taupe-dark);">
+          Reset Demo
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Site Navigation Bar -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand-logo" id="nav-brand-logo">
+          <div class="brand-dot"></div>
+          <div>
+            <div class="brand-title">FIT CHECK</div>
+            <span class="brand-tagline">Wardrobe & Outfit Studio</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button id="btn-tinyfish-modal" class="tinyfish-badge-button" title="View TinyFish Web Research Integration Status">
+            <span class="tinyfish-pill-status" id="header-tf-status-dot"></span>
+            <span>TinyFish Adapter</span>
+          </button>
+
+          <div class="user-chip" id="nav-user-chip" title="Profile Details">
+            <div class="avatar-mini" id="header-avatar-slot">RS</div>
+            <span class="user-chip-name" id="header-user-name">Rhea Sen</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Tabs (Visible when in dashboard screen) -->
+      <nav class="dashboard-nav-bar" id="dashboard-tabs-bar" style="display: none;">
+        <div class="container nav-tabs">
+          <button class="tab-btn active" data-tab="wardrobe">
+            <span>My Wardrobe</span>
+            <span class="pill-count" id="tab-count-wardrobe">8</span>
+          </button>
+          <button class="tab-btn" data-tab="styler">
+            <span>Style an Outfit</span>
+            <span style="font-size:0.8rem;color:var(--c-blush-deep);">✨</span>
+          </button>
+          <button class="tab-btn" data-tab="thrift">
+            <span>Thrift Marketplace</span>
+            <span class="pill-count" id="tab-count-thrift">4</span>
+          </button>
+          <button class="tab-btn" data-tab="donate">
+            <span>Free Donation</span>
+            <span class="pill-count" id="tab-count-donate">3</span>
+          </button>
+          <button class="tab-btn" data-tab="shop-references">
+            <span>Shop References</span>
+          </button>
+          <button class="tab-btn" data-tab="creators">
+            <span>Creator Discovery</span>
+            <span class="badge-coming-soon">Soon</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ====================================================================
+         SCREEN 1: WELCOME SCREEN
+         ==================================================================== -->
+    <main class="screen active" id="screen-welcome">
+      <section class="welcome-hero">
+        <div class="welcome-content">
+          <div class="welcome-eyebrow">
+            <span>Personal Fashion Architecture</span>
+          </div>
+
+          <h1 class="welcome-title">Create your own profile</h1>
+
+          <p class="welcome-subtitle">
+            Curate your digital closet, explore intelligent mood-driven outfit styling, and embrace circular fashion through curated thrift and free-giving communities.
+          </p>
+
+          <div class="welcome-actions">
+            <button class="btn btn-primary btn-lg" id="btn-welcome-get-started">
+              <span>Get started</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button class="btn btn-outline btn-lg" id="btn-welcome-skip-to-studio">
+              Explore Demo Wardrobe Directly
+            </button>
+          </div>
+
+          <div class="welcome-preview-grid">
+            <div class="feature-mini-card glass-panel">
+              <div class="feature-icon-bubble">👗</div>
+              <h3 class="feature-mini-title">Personal Wardrobe</h3>
+              <p class="feature-mini-desc">Digitize your clothes, jewelry, and bags. Tag by mood, color, and occasion with instant local persistence.</p>
+            </div>
+
+            <div class="feature-mini-card glass-panel">
+              <div class="feature-icon-bubble">✨</div>
+              <h3 class="feature-mini-title">Editorial Outfit Styler</h3>
+              <p class="feature-mini-desc">Pick an occasion, emotional mood, or movie/celebrity muse. Generate high-cohesion looks solely from what you own.</p>
+            </div>
+
+            <div class="feature-mini-card glass-panel">
+              <div class="feature-icon-bubble">🌱</div>
+              <h3 class="feature-mini-title">Circular Thrift & Donate</h3>
+              <p class="feature-mini-desc">Separate dedicated peer-to-peer resale and free mutual-aid donation flows to keep wearable textiles in circulation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ====================================================================
+         SCREEN 2: STEP 1 - PROFILE SETUP (Skippable Demo)
+         ==================================================================== -->
+    <section class="screen" id="screen-step1-profile">
+      <div class="container step-container">
+        <div class="step-card glass-panel">
+          <div class="step-header">
+            <div class="step-tracker">Step 1 of 3 • Profile Setup</div>
+            <h2 class="step-title">Welcome to Fit Check</h2>
+            <p class="step-desc">Establish your styling profile and digital atelier persona.</p>
+          </div>
+
+          <div class="notice-box">
+            <div class="notice-icon">ℹ️</div>
+            <div>
+              <strong>Prototype Mode:</strong> This demo operates entirely on client-side storage. Accounts are simulated locally for this browser session and are not sent to an external database.
+            </div>
+          </div>
+
+          <form id="form-step1-profile">
+            <div class="form-group">
+              <label class="form-label" for="input-prof-name">Full Name</label>
+              <input type="text" id="input-prof-name" class="form-input" placeholder="e.g. Rhea Sen" required value="Rhea Sen">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-prof-username">Style Username</label>
+              <input type="text" id="input-prof-username" class="form-input" placeholder="e.g. rheasen" required value="rheasen">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-prof-email">Email Address</label>
+              <input type="email" id="input-prof-email" class="form-input" placeholder="rhea@example.com" required value="rhea@demo-fitcheck.studio">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-prof-password">Demo Password <span class="form-label-optional">(Simulated field)</span></label>
+              <input type="password" id="input-prof-password" class="form-input" placeholder="••••••••••••" value="demo-password-123">
+              <span class="form-hint">Not stored or transmitted anywhere. Kept strictly for realistic demo experience.</span>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2rem; flex-wrap:wrap; gap:1rem;">
+              <button type="button" class="btn btn-text" id="btn-step1-skip">
+                Skip for now →
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Continue to Style Onboarding
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 3: STEP 2 - STYLE ONBOARDING
+         ==================================================================== -->
+    <section class="screen" id="screen-step2-onboarding">
+      <div class="container step-container" style="max-width: 780px;">
+        <div class="step-card glass-panel">
+          <div class="step-header">
+            <div class="step-tracker">Step 2 of 3 • Style Onboarding</div>
+            <h2 class="step-title">Define Your Aesthetic DNA</h2>
+            <p class="step-desc">Select your design affinities, shopping hubs, and mood habits.</p>
+          </div>
+
+          <!-- Aesthetic Tags Grid -->
+          <div class="form-group">
+            <label class="form-label">Aesthetic Inclinations (Select all that resonate)</label>
+            <div class="tag-selection-grid" id="onboarding-aesthetics-grid">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Mood-Dependent Toggle -->
+          <div class="mood-toggle-container">
+            <div class="mood-toggle-info">
+              <div class="mood-toggle-title">“My style depends on my mood”</div>
+              <div class="mood-toggle-sub">Enable dynamic outfit proposals based on daily energy instead of rigid categories.</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-mood-dependent" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Preferred Designers & Style Muses -->
+          <div class="form-group">
+            <label class="form-label">Preferred Designers & Style Muses</label>
+            <div class="chips-pool" id="onboarding-designers-pool">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Shopping Platforms -->
+          <div class="form-group">
+            <label class="form-label">Favorite Shopping & Thrift Platforms</label>
+            <div class="chips-pool" id="onboarding-platforms-pool">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Current Trends -->
+          <div class="form-group">
+            <label class="form-label">Current Trends You Gravitate Towards</label>
+            <div class="chips-pool" id="onboarding-trends-pool">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Reference Image Upload (Local Preview Demo) -->
+          <div class="form-group">
+            <label class="form-label">Moodboard Reference Image <span class="form-label-optional">(Optional local preview demo)</span></label>
+            <div class="image-upload-zone" id="onboarding-upload-dropzone">
+              <input type="file" id="input-onboarding-image" accept="image/*" style="display: none;">
+              <div class="image-preview-holder" id="onboarding-preview-holder">
+                <img id="onboarding-preview-img" src="" alt="Reference Preview">
+              </div>
+              <div id="onboarding-upload-prompt">
+                <div style="font-size: 1.8rem; margin-bottom: 0.35rem;">📷</div>
+                <div style="font-weight: 600; font-size: 0.92rem; color: var(--c-charcoal);">Click or drag an outfit reference image</div>
+                <div style="font-size: 0.78rem; color: var(--c-taupe); margin-top: 0.2rem;">Processed locally via browser memory for preview</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2rem; flex-wrap:wrap; gap:1rem;">
+            <button type="button" class="btn btn-outline" id="btn-step2-back">
+              ← Back
+            </button>
+            <div style="display:flex; gap:0.75rem;">
+              <button type="button" class="btn btn-text" id="btn-step2-skip">
+                Skip Onboarding
+              </button>
+              <button type="button" class="btn btn-primary" id="btn-step2-next">
+                Continue to Avatar Selection
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 4: STEP 3 - AVATAR SELECTION
+         ==================================================================== -->
+    <section class="screen" id="screen-step3-avatar">
+      <div class="container step-container">
+        <div class="step-card glass-panel">
+          <div class="step-header">
+            <div class="step-tracker">Step 3 of 3 • Avatar Persona</div>
+            <h2 class="step-title">Select Your Studio Avatar</h2>
+            <p class="step-desc">Pick a curated fashion illustration or customize initials. No AI image generation required.</p>
+          </div>
+
+          <div class="avatar-choice-grid" id="avatar-presets-grid">
+            <!-- Rendered via JS -->
+          </div>
+
+          <!-- Initials Alternative Option -->
+          <div style="margin-top: 1.5rem; padding: 1.25rem; background: var(--c-cream); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+              <div>
+                <strong style="font-size: 0.92rem; color: var(--c-charcoal);">Prefer Initials Avatar?</strong>
+                <p style="font-size: 0.8rem; color: var(--c-taupe-dark);">Display clean typographical initials on your profile card.</p>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" id="btn-use-initials-avatar">
+                Use Initials
+              </button>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2rem; flex-wrap:wrap; gap:1rem;">
+            <button type="button" class="btn btn-outline" id="btn-step3-back">
+              ← Back
+            </button>
+            <button type="button" class="btn btn-primary btn-lg" id="btn-step3-finish">
+              Enter Fit Check Studio →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 5: DASHBOARD (MAIN EXPERIENCES)
+         ==================================================================== -->
+    <main class="screen" id="screen-dashboard">
+      <div class="container" style="padding-top: 1.5rem;">
+
+        <!-- ----------------------------------------------------------------
+             TAB 1: MY WARDROBE
+             ---------------------------------------------------------------- -->
+        <section class="dashboard-view active" id="view-wardrobe">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">My Wardrobe</h2>
+              <p class="view-subtitle">Digitized garments, statement tailoring, and heirloom jewelry in your rotation.</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <button class="btn btn-outline btn-sm" id="btn-load-sample-wardrobe" title="Reset to sample fashion-editorial capsule">
+                Reload Starter Pieces
+              </button>
+              <button class="btn btn-primary btn-sm" id="btn-open-add-wardrobe-modal">
+                <span>+ Add New Piece</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Category Filter Bar -->
+          <div class="filter-bar" id="wardrobe-category-filters">
+            <button class="filter-chip active" data-cat="all">All Items</button>
+            <button class="filter-chip" data-cat="Tops">Tops</button>
+            <button class="filter-chip" data-cat="Bottoms">Bottoms</button>
+            <button class="filter-chip" data-cat="Dresses & Sets">Dresses & Sets</button>
+            <button class="filter-chip" data-cat="Outerwear">Outerwear</button>
+            <button class="filter-chip" data-cat="Footwear">Footwear</button>
+            <button class="filter-chip" data-cat="Jewelry & Accessories">Jewelry & Bags</button>
+          </div>
+
+          <!-- Wardrobe Items Grid -->
+          <div class="cards-grid" id="wardrobe-items-grid">
+            <!-- Dynamically populated via JS -->
+          </div>
+
+          <div class="empty-state" id="wardrobe-empty-state" style="display: none;">
+            <div class="empty-state-icon">🧥</div>
+            <h3>Your Wardrobe is Empty</h3>
+            <p>Add your favorite clothing pieces or reload the starter editorial capsule to begin styling outfits.</p>
+            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+              <button class="btn btn-primary" id="btn-empty-load-samples">Load Starter Wardrobe</button>
+              <button class="btn btn-outline" id="btn-empty-add-item">+ Add Your First Item</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ----------------------------------------------------------------
+             TAB 2: STYLE AN OUTFIT
+             ---------------------------------------------------------------- -->
+        <section class="dashboard-view" id="view-styler">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Style an Outfit</h2>
+              <p class="view-subtitle">Intelligent outfit planning generated strictly from your saved wardrobe.</p>
+            </div>
+          </div>
+
+          <div class="styler-layout">
+            <!-- Controls Sidebar -->
+            <div class="styler-controls-panel glass-panel">
+              <h3 class="styler-section-title">1. Choose Occasion</h3>
+              <div class="option-cards-row" id="styler-occasion-options">
+                <button type="button" class="option-select-card selected" data-value="College">College / Campus</button>
+                <button type="button" class="option-select-card" data-value="Party">Party / Evening</button>
+                <button type="button" class="option-select-card" data-value="Vacation">Vacation / Travel</button>
+                <button type="button" class="option-select-card" data-value="Special Event">Special Event</button>
+                <button type="button" class="option-select-card" data-value="Work">Work / Executive</button>
+                <button type="button" class="option-select-card" data-value="Casual Coffee">Casual Coffee</button>
+              </div>
+
+              <h3 class="styler-section-title" style="margin-top: 1.5rem;">2. Define Today’s Mood</h3>
+              <div class="option-cards-row" id="styler-mood-options">
+                <button type="button" class="option-select-card selected" data-value="Effortless & Chic">Effortless & Chic</button>
+                <button type="button" class="option-select-card" data-value="Bold & Dramatic">Bold & Dramatic</button>
+                <button type="button" class="option-select-card" data-value="Cozy & Casual">Cozy & Casual</button>
+                <button type="button" class="option-select-card" data-value="Romantic & Soft">Romantic & Soft</button>
+                <button type="button" class="option-select-card" data-value="Edgy & Sleek" style="grid-column: span 2;">Edgy & Sleek</button>
+              </div>
+
+              <h3 class="styler-section-title" style="margin-top: 1.5rem;">3. Style Muse / Reference <span class="form-label-optional">(Optional)</span></h3>
+              <input type="text" id="input-style-reference" class="form-input" placeholder="e.g. 90s Rachel Green, Zendaya minimal, Carrie Bradshaw">
+              <div class="reference-quick-chips">
+                <span class="quick-chip" data-ref="90s Rachel Green">90s Rachel Green</span>
+                <span class="quick-chip" data-ref="Zendaya Minimalist">Zendaya Minimalist</span>
+                <span class="quick-chip" data-ref="Carrie Bradshaw Paris">Carrie Bradshaw Paris</span>
+                <span class="quick-chip" data-ref="Deepika Airport Chic">Deepika Airport Chic</span>
+              </div>
+
+              <button class="btn btn-primary" id="btn-generate-outfit" style="width: 100%; margin-top: 1.75rem;">
+                <span>✨ Generate Styled Look</span>
+              </button>
+            </div>
+
+            <!-- Styled Outfit Canvas -->
+            <div class="styler-result-canvas" id="styler-result-canvas">
+              <div id="styler-loading-state" style="display: none; text-align: center; padding: 5rem 0;">
+                <div style="font-size: 2.5rem; animation: floatBubble 2s infinite alternate;">✨</div>
+                <h3 style="margin-top: 1rem;">Harmonizing Textures & Proportions...</h3>
+                <p style="font-size: 0.88rem; color: var(--c-taupe);">Filtering your wardrobe for optimal palette cohesion and cut.</p>
+              </div>
+
+              <div id="styler-output-content">
+                <!-- Dynamically populated via JS -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ----------------------------------------------------------------
+             TAB 3: THRIFT MARKETPLACE
+             ---------------------------------------------------------------- -->
+        <section class="dashboard-view" id="view-thrift">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Thrift Marketplace</h2>
+              <p class="view-subtitle">Community second-hand rotation. Discover pre-loved archival items or list your own.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" id="btn-open-add-thrift-modal">
+              <span>+ List an Item for Resale</span>
+            </button>
+          </div>
+
+          <!-- Banner with prototype disclaimer -->
+          <div class="marketplace-banner thrift-banner">
+            <div class="banner-content">
+              <h4>Peer-to-Peer Second-Hand Demonstration</h4>
+              <p>Simulated community listings. No real payment processing or location GPS tracking occurs in this prototype. Enter location manually to test distance filters.</p>
+            </div>
+            <span class="badge-soft" style="background:#FFF;">PROTOTYPE RESALE</span>
+          </div>
+
+          <!-- Search & Filter Controls -->
+          <div class="marketplace-filters">
+            <div class="search-input-wrap">
+              <input type="text" id="input-thrift-search" class="form-input" placeholder="Search thrifted jackets, boots, dresses...">
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <select id="select-thrift-distance" class="form-select" style="width: auto;">
+                <option value="all">Any Distance</option>
+                <option value="5">Within 5 miles</option>
+                <option value="15">Within 15 miles</option>
+              </select>
+              <input type="text" id="input-thrift-location" class="form-input" placeholder="Your City/Neighborhood (e.g. Brooklyn)" value="Brooklyn, NY" style="width: 170px;">
+            </div>
+          </div>
+
+          <!-- Thrift Listings Grid -->
+          <div class="cards-grid" id="thrift-listings-grid">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </section>
+
+        <!-- ----------------------------------------------------------------
+             TAB 4: DONATE (FREE CIRCULAR GIVING)
+             ---------------------------------------------------------------- -->
+        <section class="dashboard-view" id="view-donate">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Free Circular Donation</h2>
+              <p class="view-subtitle">100% Free mutual-aid giving. Help wearable garments find a loving second home.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" id="btn-open-add-donation-modal">
+              <span>+ List an Item to Donate</span>
+            </button>
+          </div>
+
+          <!-- Distinct Free Donation Banner -->
+          <div class="marketplace-banner donate-banner">
+            <div class="banner-content">
+              <h4>Community Wardrobe Mutual Aid</h4>
+              <p>Donations are <strong>completely free</strong> and strictly distinct from resale or thrift. Connect directly with career closets, shelter winter drives, and student clothing swaps.</p>
+            </div>
+            <span class="free-donation-pill">100% Free Giving</span>
+          </div>
+
+          <!-- Donation Listings Grid -->
+          <div class="cards-grid" id="donation-listings-grid">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </section>
+
+        <!-- ----------------------------------------------------------------
+             TAB 5: SHOP REFERENCES
+             ---------------------------------------------------------------- -->
+        <section class="dashboard-view" id="view-shop-references">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Shop References & Inspiration</h2>
+              <p class="view-subtitle">Curated editorial reference lookbooks and sustainable brand benchmarks.</p>
+            </div>
+          </div>
+
+          <div class="notice-box" style="margin-bottom: 2rem;">
+            <div class="notice-icon">🔗</div>
+            <div>
+              <strong>Sample Inspiration Data:</strong> The shopping references below are curated editorial inspiration links with sample mock targets. External retailer endpoints are simulated for demonstration purposes.
+            </div>
+          </div>
+
+          <div class="cards-grid" id="shop-references-grid">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </section>
+
+        <!-- ----------------------------------------------------------------
+             TAB 6: CREATOR DISCOVERY (COMING SOON)
+             ---------------------------------------------------------------- -->
+        <section class="dashboard-view" id="view-creators">
+          <div class="view-header">
+            <div>
+              <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.25rem;">
+                <h2 class="view-title" style="margin-bottom:0;">Creator Discovery</h2>
+                <span class="badge-coming-soon" style="font-size:0.8rem; padding:0.25rem 0.65rem;">Coming Soon</span>
+              </div>
+              <p class="view-subtitle">A curated collective of independent stylists, cultural fusion curators, and capsule architects.</p>
+            </div>
+          </div>
+
+          <div class="cards-grid" id="creators-preview-grid">
+            <!-- Dynamically populated via JS -->
+          </div>
+
+          <div class="glass-panel" style="margin-top: 2.5rem; padding: 2rem; border-radius: var(--radius-xl); text-align: center;">
+            <h3 style="font-size: 1.6rem; margin-bottom: 0.5rem;">Apply for Early Creator Access</h3>
+            <p style="max-width: 480px; margin: 0 auto 1.25rem; font-size: 0.9rem;">Are you a stylist or sustainable fashion archivist? Join the private beta for verified lookbook publishing.</p>
+            <div style="display: inline-flex; gap: 0.5rem; max-width: 380px; width: 100%;">
+              <input type="email" id="input-creator-email" class="form-input" placeholder="your.handle@instagram or email">
+              <button class="btn btn-primary" id="btn-join-creator-waitlist" style="flex-shrink:0;">Join Waitlist</button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ====================================================================
+         MODALS & DRAWERS
+         ==================================================================== -->
+
+    <!-- Modal: Add Wardrobe Item -->
+    <div class="modal-backdrop" id="modal-add-wardrobe">
+      <div class="modal-window">
+        <div class="modal-header">
+          <h3 style="font-size: 1.5rem;">Add to Wardrobe</h3>
+          <button class="modal-close-btn" data-close-modal="modal-add-wardrobe">&times;</button>
+        </div>
+        <form id="form-add-wardrobe">
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="form-label" for="input-wardrobe-name">Garment / Jewelry Name</label>
+              <input type="text" id="input-wardrobe-name" class="form-input" placeholder="e.g. Cropped Linen Vest" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label" for="select-wardrobe-category">Category</label>
+                <select id="select-wardrobe-category" class="form-select" required>
+                  <option value="Tops">Tops</option>
+                  <option value="Bottoms">Bottoms</option>
+                  <option value="Dresses & Sets">Dresses & Sets</option>
+                  <option value="Outerwear">Outerwear</option>
+                  <option value="Footwear">Footwear</option>
+                  <option value="Jewelry & Accessories">Jewelry & Accessories</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="input-wardrobe-color">Primary Color</label>
+                <select id="input-wardrobe-color" class="form-select">
+                  <option value="Ivory">Ivory / Cream</option>
+                  <option value="Taupe">Taupe / Stone</option>
+                  <option value="Charcoal">Charcoal / Black</option>
+                  <option value="Blush Pink">Blush Pink</option>
+                  <option value="Gold">Gold</option>
+                  <option value="Silver">Silver</option>
+                  <option value="Olive">Olive Green</option>
+                  <option value="Navy">Navy Blue</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Image selector: upload or preset -->
+            <div class="form-group">
+              <label class="form-label">Garment Photo <span class="form-label-optional">(Upload or pick sample)</span></label>
+              <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <input type="file" id="input-wardrobe-file" accept="image/*" class="form-input" style="padding: 0.5rem;">
+              </div>
+              <div style="font-size: 0.78rem; color: var(--c-taupe);">Or choose from curated preset photography:</div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 0.4rem; overflow-x: auto; padding-bottom: 0.25rem;" id="wardrobe-photo-presets">
+                <!-- Preset thumbnails populated by JS -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Occasion Fit</label>
+              <div class="chips-pool" id="wardrobe-modal-occasions" style="margin-bottom: 0;">
+                <span class="chip-selectable selected" data-val="College">College</span>
+                <span class="chip-selectable selected" data-val="Party">Party</span>
+                <span class="chip-selectable" data-val="Vacation">Vacation</span>
+                <span class="chip-selectable" data-val="Special Event">Special Event</span>
+                <span class="chip-selectable" data-val="Work">Work</span>
+                <span class="chip-selectable" data-val="Casual Coffee">Casual Coffee</span>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem;">
+              <label class="form-label" for="input-wardrobe-notes">Styling & Fit Notes <span class="form-label-optional">(Optional)</span></label>
+              <textarea id="input-wardrobe-notes" class="form-textarea" placeholder="Fabric composition, fit feel, layering ideas..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-text" data-close-modal="modal-add-wardrobe">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save to My Wardrobe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Add Thrift Listing -->
+    <div class="modal-backdrop" id="modal-add-thrift">
+      <div class="modal-window">
+        <div class="modal-header">
+          <h3 style="font-size: 1.5rem;">List for Thrift & Resale</h3>
+          <button class="modal-close-btn" data-close-modal="modal-add-thrift">&times;</button>
+        </div>
+        <form id="form-add-thrift">
+          <div class="modal-body">
+            <div class="notice-box">
+              <div class="notice-icon">🏷️</div>
+              <div><strong>Demo Resale Listing:</strong> Visible to other simulated users in this browser session. No actual financial transaction or shipping occurs.</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-thrift-title">Garment / Accessory Title</label>
+              <input type="text" id="input-thrift-title" class="form-input" placeholder="e.g. Suede Fringe Oversized Jacket" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label" for="input-thrift-price">Price ($ USD)</label>
+                <input type="number" id="input-thrift-price" class="form-input" placeholder="45" min="1" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="input-thrift-size">Size</label>
+                <input type="text" id="input-thrift-size" class="form-input" placeholder="e.g. Medium / US 6" required>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label" for="select-thrift-condition">Condition</label>
+                <select id="select-thrift-condition" class="form-select">
+                  <option value="Like New (With or without tags)">Like New</option>
+                  <option value="Gently Loved (Minimal wear)">Gently Loved</option>
+                  <option value="Vintage Patina (Authentic wear)">Vintage Patina</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="input-thrift-seller-location">Manual Location</label>
+                <input type="text" id="input-thrift-seller-location" class="form-input" placeholder="e.g. SoHo, NY (approx 1.2 mi)" required value="Williamsburg, NY (approx 2.5 mi)">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-thrift-story">The Piece’s Story & Care</label>
+              <textarea id="input-thrift-story" class="form-textarea" placeholder="Where did you get it? Why are you parting with it?"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-text" data-close-modal="modal-add-thrift">Cancel</button>
+            <button type="submit" class="btn btn-primary">Publish Demo Listing</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Add Free Donation -->
+    <div class="modal-backdrop" id="modal-add-donation">
+      <div class="modal-window">
+        <div class="modal-header">
+          <h3 style="font-size: 1.5rem;">List Free Community Donation</h3>
+          <button class="modal-close-btn" data-close-modal="modal-add-donation">&times;</button>
+        </div>
+        <form id="form-add-donation">
+          <div class="modal-body">
+            <div class="marketplace-banner donate-banner" style="margin-bottom: 1rem; padding: 0.75rem 1rem;">
+              <div class="banner-content">
+                <p style="font-size: 0.82rem; margin:0;"><strong>100% Free Mutual Aid:</strong> Items listed here are gifted without charge to individuals, student closets, or local relief initiatives.</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-donation-title">Item Title / Bundle Description</label>
+              <input type="text" id="input-donation-title" class="form-input" placeholder="e.g. Box of Warm Winter Sweaters & Scarves" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div class="form-group">
+                <label class="form-label" for="select-donation-cause">Intended Mutual Aid Cause</label>
+                <select id="select-donation-cause" class="form-select">
+                  <option value="Career Closet for First-Gen Grads">Career Closet (First-Gen Grads)</option>
+                  <option value="Local Winter Warmth Shelter Drive">Winter Warmth Shelter Drive</option>
+                  <option value="Student Mutual Aid Clothing Swap">Student Mutual Aid Swap</option>
+                  <option value="Women's Community Safe Center">Women's Safe Center</option>
+                  <option value="General Community Free Giving">General Free Giving</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="input-donation-size">Size / Fit</label>
+                <input type="text" id="input-donation-size" class="form-input" placeholder="e.g. L / Free Size" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-donation-pickup">Drop-off / Exchange Method</label>
+              <input type="text" id="input-donation-pickup" class="form-input" placeholder="e.g. Campus Locker Exchange / Community Box #3" required value="Community Hub Locker Drop-off">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="input-donation-notes">Donor Note & Garment Condition</label>
+              <textarea id="input-donation-notes" class="form-textarea" placeholder="Clean, freshly washed, ready for wear..."></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-text" data-close-modal="modal-add-donation">Cancel</button>
+            <button type="submit" class="btn btn-primary">List Free Donation</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: TinyFish Integration Status & Test -->
+    <div class="modal-backdrop" id="modal-tinyfish-service">
+      <div class="modal-window" style="max-width: 660px;">
+        <div class="modal-header">
+          <div style="display:flex; align-items:center; gap:0.6rem;">
+            <div class="brand-dot" style="background:var(--c-blush);"></div>
+            <h3 style="font-size: 1.5rem; margin:0;">TinyFish Web Research Integration</h3>
+          </div>
+          <button class="modal-close-btn" data-close-modal="modal-tinyfish-service">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="notice-box">
+            <div class="notice-icon">🤖</div>
+            <div>
+              <strong>Intended Architecture Role:</strong>
+              TinyFish is designed as the autonomous web research and browser automation layer for FIT CHECK. It crawls retail lookbooks, extracts garment cut/composition/pricing, and discovers visual fashion references across the open web.
+            </div>
+          </div>
+
+          <div style="margin-bottom: 1.5rem; padding: 1.25rem; background: var(--c-ivory); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span style="font-size: 0.85rem; font-weight: 600;">Current Integration Status:</span>
+              <span class="badge-soft" id="tf-modal-status-badge">Mock Fallback (Unconfigured)</span>
+            </div>
+            <div style="font-size: 0.82rem; color: var(--c-taupe-dark); line-height: 1.5;">
+              No API credentials or live automation servers are connected in this static prototype. The application uses a robust local adapter with simulated fashion research results.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Test TinyFish Web Research Query</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="text" id="input-tf-test-query" class="form-input" placeholder="e.g. 90s Minimalist Suiting, Linen Trench..." value="90s Minimalist Suiting">
+              <button class="btn btn-primary" id="btn-run-tf-test" style="flex-shrink: 0;">Test Search</button>
+            </div>
+          </div>
+
+          <div id="tf-test-results-area" style="margin-top: 1rem; display: none;">
+            <!-- Rendered by JS -->
+          </div>
+
+          <h4 style="font-size: 1.15rem; margin: 1.5rem 0 0.5rem;">Production Setup Guide</h4>
+          <pre style="background: var(--c-charcoal); color: #F4EFEA; padding: 1rem; border-radius: var(--radius-md); font-size: 0.76rem; overflow-x: auto; line-height: 1.45;">
+// In production, configure TinyFish credentials:
+window.TINYFISH_CONFIG = {
+  apiKey: "tf_live_sample_token_xyz",
+  endpoint: "https://api.tinyfish.ai/v1",
+  allowedDomains: ["vogue.com", "ssense.com", "reformation.com"]
+};</pre>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-close-modal="modal-tinyfish-service">Close Inspector</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Reset Confirmation -->
+    <div class="modal-backdrop" id="modal-reset-confirm">
+      <div class="modal-window" style="max-width: 460px; text-align: center;">
+        <div class="modal-body" style="padding: 2.5rem 2rem 1.5rem;">
+          <div style="font-size: 2.8rem; margin-bottom: 1rem;">🔄</div>
+          <h3 style="font-size: 1.6rem; margin-bottom: 0.5rem;">Reset Prototype Demo?</h3>
+          <p style="font-size: 0.9rem; color: var(--c-taupe-dark); margin-bottom: 1.5rem;">
+            This will restore the original starter wardrobe, sample thrift listings, and profile defaults in your local browser storage.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 0.75rem;">
+            <button type="button" class="btn btn-outline" data-close-modal="modal-reset-confirm">Cancel</button>
+            <button type="button" class="btn btn-primary" id="btn-confirm-reset-all">Yes, Reset to Defaults</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  </div> <!-- End #app -->
+
+  <!-- Application Script Modules -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

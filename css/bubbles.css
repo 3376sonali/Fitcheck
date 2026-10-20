@@ -1,0 +1,99 @@
+/* ==========================================================================
+   FIT CHECK - Ambient Translucent Bubble Effect
+   Lightweight, GPU-accelerated, non-intrusive floating orbs
+   ========================================================================== */
+
+.bubble-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.85;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  will-change: transform, opacity;
+  animation: floatBubble 22s ease-in-out infinite alternate;
+}
+
+/* Bubble 1: Soft Blush Aura */
+.bubble-1 {
+  width: 480px;
+  height: 480px;
+  top: -120px;
+  right: -80px;
+  background: radial-gradient(circle, rgba(226, 149, 157, 0.22) 0%, rgba(248, 233, 235, 0.08) 60%, transparent 80%);
+  animation-duration: 24s;
+  animation-delay: 0s;
+}
+
+/* Bubble 2: Warm Taupe / Cream Orb */
+.bubble-2 {
+  width: 520px;
+  height: 520px;
+  bottom: 5%;
+  left: -140px;
+  background: radial-gradient(circle, rgba(213, 207, 201, 0.3) 0%, rgba(244, 239, 234, 0.1) 65%, transparent 85%);
+  animation-duration: 28s;
+  animation-delay: -6s;
+}
+
+/* Bubble 3: Gentle Center Warmth */
+.bubble-3 {
+  width: 380px;
+  height: 380px;
+  top: 45%;
+  right: 15%;
+  background: radial-gradient(circle, rgba(232, 180, 184, 0.18) 0%, rgba(250, 248, 245, 0.05) 70%, transparent 85%);
+  animation-duration: 20s;
+  animation-delay: -11s;
+}
+
+/* Bubble 4: Small Accent Orb */
+.bubble-4 {
+  width: 260px;
+  height: 260px;
+  top: 15%;
+  left: 20%;
+  background: radial-gradient(circle, rgba(176, 137, 104, 0.12) 0%, transparent 75%);
+  animation-duration: 18s;
+  animation-delay: -3s;
+}
+
+@keyframes floatBubble {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(24px, -35px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-20px, 25px, 0) scale(0.95);
+  }
+}
+
+/* Frosted glass utility cards with translucent bubble feel */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(231, 226, 220, 0.7);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 149, 157, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble {
+    animation: none;
+    transform: none;
+  }
+}
